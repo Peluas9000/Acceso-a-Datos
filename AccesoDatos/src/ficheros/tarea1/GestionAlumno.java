@@ -115,9 +115,9 @@ public class GestionAlumno {
 			break;
 		
 		case 3:
-			a.sort(Comparator.comparingInt(Alumno::getNia).reversed());
-			for(Alumno alumnos_a:a) {
-				System.out.println(a);
+			lista2.sort(Comparator.comparingInt(Alumno::getNia).reversed());
+			for(Alumno alumnos_a:lista2) {
+				System.out.println(lista2);
 			}
 			
 			break;
@@ -151,7 +151,7 @@ public class GestionAlumno {
 			}
 			
 			lista2.sort(c);
-			for(Alumno lista :lista2) {
+			for(Alumno l :lista2) {
 				System.out.println(lista);
 			}
 			
