@@ -30,7 +30,52 @@ public class GestionAlumno {
 		// opcional 2
 		ArrayList<Alumno> lista2 = new ArrayList<Alumno>();
 		Scanner entrada = new Scanner(System.in);
-		for (int i = 0; i < 5; i++) {
+		
+		System.out.println("1.LEER 5 ALUMNOS "
+				+ "2.AÑADIR ALUMNO"
+				+ "3.MOSTRAR LOS ALUMNOS POR NIA "
+				+ "4.ORDENAR SEGUN EL CRITERIO");
+		int num=entrada.nextInt();
+		
+		switch(num) {
+		case 1:
+			for (int i = 0; i < 5; i++) {
+				System.out.println("Dime el nombre ");
+				String nombre = entrada.next();
+				System.out.println("Dime el apellido");
+				String apellido = entrada.next();
+
+				System.out.println("Dime el curso estas cursando");
+				String curso = entrada.next();
+
+				System.out.println("Que año del curso estas");
+				String curso_anio = entrada.next();
+
+				System.out.println("De que grupo eres");
+				String grupo = entrada.next();
+
+				System.out.println("Dime tu NIA de alumno ");
+				int nia = entrada.nextInt();
+				System.out.println("Que genero eres");
+				String genero = entrada.next();
+
+				System.out.println("Dime el año de nacimiento");
+				int anio = entrada.nextInt();
+				System.out.println("Dime el mes de nacimiento");
+				int mes = entrada.nextInt();
+
+				System.out.println("Dime el dia de nacimiento");
+				int dia = entrada.nextInt();
+				
+				Alumno alumno = new Alumno(nombre, apellido, curso, curso_anio, grupo, nia, genero,
+						LocalDate.of(anio, mes, dia));
+				
+				lista2.add(alumno);
+			break;
+			
+		}
+		
+		case 2:
 			System.out.println("Dime el nombre ");
 			String nombre = entrada.next();
 			System.out.println("Dime el apellido");
@@ -57,11 +102,60 @@ public class GestionAlumno {
 
 			System.out.println("Dime el dia de nacimiento");
 			int dia = entrada.nextInt();
-
+			
 			Alumno alumno = new Alumno(nombre, apellido, curso, curso_anio, grupo, nia, genero,
 					LocalDate.of(anio, mes, dia));
-
+			
 			lista2.add(alumno);
+
+			break;
+		
+		case 3:
+			a.sort(Comparator.comparingInt(Alumno::getNia).reversed());
+			for(Alumno alumnos_a:a) {
+				System.out.println(a);
+			}
+			
+			break;
+		
+		case 4:
+			System.out.println("ORDENAR POR :"
+					+ "1.NOMBRE"
+					+ "2.NIA"
+					+ "3.CURSO");
+			int criterio=entrada.nextInt();
+			entrada.nextLine();
+			
+			Comparator<Alumno> c;
+			switch(criterio) {
+			case 1:
+				c=Comparator.comparing(Alumno::getNombre,String.CASE_INSENSITIVE_ORDER);
+				break;
+			case 2:
+				c=Comparator.comparingInt(Alumno::getNia);
+				
+				break;
+				
+			case 3:
+				c=Comparator.comparing(Alumno::getCurso,String.CASE_INSENSITIVE_ORDER);
+				break;
+			default:
+				System.out.println("Criterio incorrecto");
+				System.out.println("Ordenando por NIA por defecto");
+				c=Comparator.comparingInt(Alumno::getNia);
+
+			}
+			
+			lista2.sort(c);
+			for(Alumno lista :lista2) {
+				System.out.println(lista);
+			}
+			
+			
+
+			
+
+			
 		}
 
 	}
