@@ -139,7 +139,7 @@ public class GestionAlumno {
 			case 3:
 				c=Comparator.comparing(Alumno::getCurso,String.CASE_INSENSITIVE_ORDER);
 				break;
-			default:
+			default: 
 				System.out.println("Criterio incorrecto");
 				System.out.println("Ordenando por NIA por defecto");
 				c=Comparator.comparingInt(Alumno::getNia);
