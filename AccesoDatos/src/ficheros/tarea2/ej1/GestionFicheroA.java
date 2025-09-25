@@ -16,7 +16,9 @@ public class GestionFicheroA {
 			try {
 				while((cadena=br.readLine())!=null) {
 					System.out.println(cadena);
+					
 				}
+				
 				br.close();
 				fr.close();
 				
