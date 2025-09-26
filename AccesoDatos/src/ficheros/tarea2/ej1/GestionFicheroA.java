@@ -12,6 +12,12 @@ public class GestionFicheroA {
 			BufferedReader br=new BufferedReader(fr);
 			
 			String cadena;
+			try {
+				cadena = br.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			try {
 				while((cadena=br.readLine())!=null) {
