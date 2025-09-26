@@ -37,7 +37,15 @@ public class LineaPar {
 				
 				FileWriter fw=new FileWriter(nombre+".txt");
 				PrintWriter pw=new PrintWriter(fw);
-			} catch (IOException e) {
+				for(String frases:frases_par) {
+					pw.println(frases);
+					
+				}
+				
+				
+				
+			
+				} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
