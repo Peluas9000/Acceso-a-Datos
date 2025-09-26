@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+
+	
 /*Crea un programa en Java que guarde en un fichero de texto lo que el usuario
 escriba por la línea de comandos (línea a línea). Para finalizar, el usuario deberá
 escribir una línea con la palabra “exit” (no debe aparecer en el fichero de texto).*/
