@@ -20,9 +20,9 @@ public class GestionAlumnos5 {
 			FileOutputStream fo=new FileOutputStream("Ejercicio5.dat"); 
 			dp = new DataOutputStream(fo);
 			ObjectOutputStream oo=new ObjectOutputStream(fo);
-
-			for (int i = 0; i <4; i++) {
-				System.out.println("Dime los siguintes datos para el alumno numero " + i);
+			
+			for (int i = 0; i <1; i++) {
+				System.out.println("Dime los siguientes datos para el alumno numero " + i);
 				System.out.println("Dime tu nombre");
 				String nombre = entrada.next();
 				System.out.println("Apellidos");
