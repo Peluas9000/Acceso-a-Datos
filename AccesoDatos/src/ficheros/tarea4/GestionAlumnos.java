@@ -33,13 +33,13 @@ public class GestionAlumnos {
 			lista.add(a4);
 			lista.add(a5);
 
-			System.out.println("Dime el nombre del fichero sin la extension");
-			String fichero = entrada.next();
+//			System.out.println("Dime el nombre del fichero sin la extension");
+//			String fichero = entrada.next();
 			System.out.println("Dime la ruta sin el nombre del fichero de ultima");
-			String ruta = entrada.next();
+			String ruta = entrada.nextLine();
 
 			// Escritura de los 5 alumnos
-			dp = new DataOutputStream(new FileOutputStream(ruta + fichero + ".dat"));
+			dp = new DataOutputStream(new FileOutputStream(ruta));
 
 			for (Alumno a : lista) {
 				dp.writeInt(a.getNia());
@@ -55,7 +55,7 @@ public class GestionAlumnos {
 			}
 			
 			//Lectura de los 5 alumnos 
-			di=new DataInputStream(new FileInputStream(ruta+fichero+".dat"));
+			di=new DataInputStream(new FileInputStream(ruta));
 			while(di.available()>0) {
 				 int nia = di.readInt();
 				    String nombre = di.readUTF();
