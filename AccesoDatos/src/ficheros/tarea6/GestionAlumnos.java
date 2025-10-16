@@ -1,6 +1,7 @@
 package ficheros.tarea6;
 
-import java.io.EOFException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,157 +9,134 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import ficheros.tarea1.Alumno;
 import ficheros.tarea5.Alumno5;
 
 public class GestionAlumnos {
+	public static void main(String[] args) {
+		/*
+		 * 1.Crear un menu Generar un fichero vacio para añadir alumnos y es eun fichero
+		 * principal 2.Coger ya un fichero con alumnos 3.Cargar los alumnos del fichero
+		 * existente al fichero creado vacio () 4.mostrar los alumnos del fichero en uso
+		 * ya cargado con los alumnos del fichero existente
+		 */
 
-    public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
-        String ficheroEnUso = null;
-        int opcion = 0;
+		int opcion = 0;
+		do {
+			Scanner entrada = new Scanner(System.in);
 
-        do {
-            System.out.println("\n========= MENÚ DE GESTIÓN DE ALUMNOS =========");
-            System.out.println("1. Generar fichero vacío");
-            System.out.println("2. Seleccionar fichero existente");
-            System.out.println("3. Añadir alumno al fichero en uso");
-            System.out.println("4. Mostrar todos los alumnos del fichero en uso");
-            System.out.println("5. Salir");
-            System.out.println("==============================================");
-            System.out.print("Elige una opción: ");
-            opcion = entrada.nextInt();
-            entrada.nextLine(); // limpiar buffer
+			System.out.println("1.Generamos el archivo vacio que usaremos "
+					+ "2.Leer objeto de tipo alumno en un fichero existente con alumnos "
+					+ "3.Insertar el alumno en el fichero en uso" + "4.Leer los datos del alumno del fichero en uso"
+					+ "5.Salir del programa");
+			opcion = entrada.nextInt();
 
-            switch (opcion) {
+			System.out.println("Dime el fichero a utilizar");
+			String fichero_uso = entrada.nextLine();
+			switch (opcion) {
+			case 1:
+				try (FileOutputStream fo = new FileOutputStream(fichero_uso, true)) {
+					System.out.println("El fichero en uso es " + fichero_uso);
 
-            case 1: // Crear fichero vacío
-                System.out.print("Introduce el nombre del nuevo fichero (sin extensión): ");
-                String nombreNuevo = entrada.nextLine();
-                ficheroEnUso = nombreNuevo + ".dat";
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-                try (FileOutputStream fo = new FileOutputStream(ficheroEnUso)) {
-                    System.out.println("Fichero " + ficheroEnUso + " creado correctamente.");
-                } catch (IOException e) {
-                    System.out.println("Error al crear el fichero.");
-                    e.printStackTrace();
-                }
-                break;
+				break;
 
-            case 2: // Seleccionar fichero existente
-                System.out.print("Introduce el nombre del fichero existente (sin extensión): ");
-                String nombreExistente = entrada.nextLine();
-                ficheroEnUso = nombreExistente + ".dat";
-                File f = new File(ficheroEnUso);
-                if (f.exists()) {
-                    System.out.println("Fichero " + ficheroEnUso + " seleccionado correctamente.");
-                } else {
-                    System.out.println("El fichero no existe. Intenta crearlo primero.");
-                    ficheroEnUso = null;
-                }
-                break;
+			case 2:
+				System.out.println("Dime el fichero existente");
+				fichero_uso = entrada.next();
+				File fi = new File(fichero_uso);
+				if (fi.exists()) {
+					System.out.println("El fichero existe");
 
-            case 3: // Añadir alumno manualmente
-                if (ficheroEnUso == null) {
-                    System.out.println("Primero debes crear o seleccionar un fichero.");
-                    break;
-                }
+				} else {
+					System.out.println("El fichero no existe, vuelve a escribir un fichero inexistente");
+					fichero_uso = null;
+				}
 
-                try {
-                    System.out.print("NIA: ");
-                    int nia = entrada.nextInt();
-                    entrada.nextLine();
+				break;
 
-                    System.out.print("Nombre: ");
-                    String nombre = entrada.nextLine();
+			case 3:
+				if (fichero_uso == null) {
+					System.out.println("Primero debes crear o seleccionar un fichero.");
+					break;
+				}
 
-                    System.out.print("Apellidos: ");
-                    String apellidos = entrada.nextLine();
+				System.out.print("NIA: ");
+				int nia = entrada.nextInt();
+				entrada.nextLine();
+				System.out.print("Nombre: ");
+				String nombreAlumno = entrada.nextLine();
+				System.out.print("Apellidos: ");
+				String apellidos = entrada.nextLine();
+				System.out.print("Género (M/F): ");
+				char genero = entrada.next().charAt(0);
+				System.out.println("Dime el año de nacimiento");
+				int anio = entrada.nextInt();
+				System.out.println("Dime el mes de nacimiento");
+				int mes = entrada.nextInt();
+				System.out.println("Dime el dia de nacimiento");
+				int dia = entrada.nextInt();
+				System.out.print("Ciclo: ");
+				String ciclo = entrada.next();
+				System.out.print("Curso: ");
+				String curso = entrada.next();
+				System.out.print("Grupo: ");
+				String grupo = entrada.next();
 
-                    System.out.print("Género (M/F): ");
-                    String genero = entrada.next();
-                    entrada.nextLine();
+				Alumno5 alumno = new Alumno5(nombreAlumno, apellidos, ciclo, curso, grupo, nia, grupo,
+						LocalDate.of(anio, mes, dia));
 
-                    System.out.print("Dime el año de nacimiento");
-                    int anio = entrada.nextInt();
-                    System.out.println("Dime el mes de nacimiento");
-                    int mes=entrada.nextInt();
-                    System.out.println("Dime el dia de tu nacimiento");
-                    int dia=entrada.nextInt();
-                    
-                    System.out.print("Ciclo: ");
-                    String ciclo = entrada.nextLine();
+				try (FileOutputStream fo = new FileOutputStream(fichero_uso, true);
+						ObjectOutputStream o = new ObjectOutputStream(fo)) {
+					o.writeObject(alumno);
+					System.out.println("Alumno añadido correctamente.");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
 
-                    System.out.print("Curso: ");
-                    String curso = entrada.nextLine();
+			case 4:
+				try {
+					FileInputStream f = new FileInputStream(fichero_uso);
+					ObjectInputStream d = new ObjectInputStream(f);
 
-                    System.out.print("Grupo: ");
-                    String grupo = entrada.nextLine();
-                    
-                    
-                    Alumno5 alumno = new Alumno5(nombre, apellidos, ciclo, curso, grupo, nia, genero,
-    						LocalDate.of(anio, mes, dia));                    
-                    // Escribir alumno en modo append
-                    File fichero = new File(ficheroEnUso);
-                    FileOutputStream fos = new FileOutputStream(fichero, true);
-                    if (fichero.length() == 0) {
-                        // Si el fichero está vacío, escribimos cabecera normal
-                        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos)) {
-                            oos.writeObject(alumno);
-                        }
-                    } else {
-                        // Si ya tiene objetos, usamos MiObjectOutputStream para evitar nueva cabecera
-                        try (ObjectOutputStream moos = new ObjectOutputStream(fos)) {
-                            moos.writeObject(alumno);
-                        }
-                    }
+					while (d.available() != -1) {
 
-                    System.out.println("Alumno añadido correctamente al fichero " + ficheroEnUso);
+						try {
+							Alumno a = (Alumno) d.readObject();
+							System.out.println(a.toString());
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Clase alumno no encontrado ");
+						}
 
-                } catch (IOException e) {
-                    System.out.println("Error al escribir en el fichero.");
-                    e.printStackTrace();
-                }
-                break;
+					}
 
-            case 4: // Mostrar todos los alumnos
-                if (ficheroEnUso == null) {
-                    System.out.println("Primero debes crear o seleccionar un fichero.");
-                    break;
-                }
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
-                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroEnUso))) {
-                    System.out.println("\n--- LISTA DE ALUMNOS EN " + ficheroEnUso + " ---");
-                    while (true) {
-                        try {
-                            Alumno5 a = (Alumno5) ois.readObject();
-                            System.out.println(a.toString());
-                        } catch (EOFException e) {
-                            break; // fin del fichero
-                        }
-                    }
-                } catch (FileNotFoundException e) {
-                    System.out.println("No se encuentra el fichero.");
-                } catch (IOException e) {
-                    System.out.println("Error leyendo el fichero.");
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
+				break;
 
-            case 5:
-                System.out.println("Fin del programa.");
-                break;
+			case 5:
+				System.out.println("Ha finalizado el programa");
 
-            default:
-                System.out.println("Opción no válida.");
-            }
+				break;
 
-        } while (opcion != 5);
+			}
 
-        entrada.close();
-    }
+		} while (opcion != 5);
+
+	}
 }
