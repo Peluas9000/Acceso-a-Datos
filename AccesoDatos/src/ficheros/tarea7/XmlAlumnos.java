@@ -62,7 +62,7 @@ public class XmlAlumnos {
 			//Generamos el fichero XML QUE ESTABA EN MEMORIA 
 			
 			Source source =new DOMSource(document);
-			Result result=new StreamResult(new java.io.File("AlumnosDOMObjetos.xml"));
+			Result result=new StreamResult(new java.io.File(nombre));
 			Transformer transformer= TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);
 			
@@ -78,7 +78,7 @@ public class XmlAlumnos {
 	
 		
 	}
-
+	
 	protected void crearElementoAlumno(Document documento,Element alumnoElement,Alumno alumno) {
 		crearElementoAlumno("NIA",Integer.toString(alumno.getNia()),alumnoElement,documento);
 		crearElementoAlumno("nombre",alumno.getNombre(), alumnoElement, documento);
@@ -97,5 +97,14 @@ public class XmlAlumnos {
 		alumnos.appendChild(elem);
 		
 	}
+	
+	
+	public static void main(String[] args) {
+		XmlAlumnos a=new XmlAlumnos();
+		
+		a.generarXML("AlumnosDOMObjetos");
+		
+	}
+	
 }
 

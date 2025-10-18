@@ -20,7 +20,8 @@ public class XmlAtributos extends XmlAlumnos {
         alumnoElement.setAttribute("curso", alumno.getCurso());
         alumnoElement.setAttribute("grupo", alumno.getGrupo());
     }
-
+	
+	
     public static void main(String[] args) {
         XmlAtributos generador = new XmlAtributos();
         generador.generarXML("AlumnosAtributos.xml");
