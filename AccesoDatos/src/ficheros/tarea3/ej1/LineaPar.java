@@ -1,4 +1,4 @@
-package ficheros.tarea3.ej1;
+              package ficheros.tarea3.ej1;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

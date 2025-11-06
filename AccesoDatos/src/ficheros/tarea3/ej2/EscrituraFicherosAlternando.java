@@ -36,7 +36,7 @@ public class EscrituraFicherosAlternando {
 			
 			ArrayList<String> lista=new ArrayList<String>();
 
-			FileWriter fw=new FileWriter("Ejercicio3.txt");
+			FileWriter fw=new FileWriter("Ejercicio3.txt");                         
 			PrintWriter pw=new PrintWriter(fw);
 			int cont=0;
 			while(cont<lista1.size()||cont<lista2.size()) {
