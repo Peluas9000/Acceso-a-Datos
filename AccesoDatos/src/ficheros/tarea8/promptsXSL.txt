@@ -1,0 +1,7 @@
+Enlace de la conversacion:https://chatgpt.com/share/6908c858-22fc-8012-890c-070af880f4ca
+
+1- Genera una hoja XSLT que transforme un fichero XML de alumnos con atributos (NIA, nombre, apellidos, genero, fecha_nacimiento, ciclo, curso, grupo) en una tabla HTML con una fila por alumno y una cabecera con esas columnas.
+
+2-Modifica la hoja XSLT para que las filas pares sean grises y las impares blancas
+
+3- Haz que la tabla incluya una columna adicional llamada ‘Edad’ calculada a partir del año de nacimiento.
