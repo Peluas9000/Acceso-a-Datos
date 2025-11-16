@@ -18,7 +18,7 @@ public class GenerarJSON {
 
 	        System.out.println("Introduce los datos de 5 alumnos:");
 
-	        for (int i = 1; i <= 1; i++) {
+	        for (int i = 1; i <= 5; i++) {
 	            System.out.println("\nAlumno " + i + ":");
 	            System.out.print("NIA: ");
 	            int nia = sc.nextInt();
