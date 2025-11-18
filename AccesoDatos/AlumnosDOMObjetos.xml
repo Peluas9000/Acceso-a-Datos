@@ -1,1 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Alumnos><alumno NIA="1256" apellidos="Gutierrez" ciclo="dam" curso="segundo" fecha_nacimiento="2005-11-19" genero="H" grupo="D" nombre="Ayoub"/><alumno NIA="5322" apellidos="Santos" ciclo="dam" curso="segundo" fecha_nacimiento="2000-12-12" genero="M" grupo="A" nombre="Pilar"/><alumno NIA="321" apellidos="Garcia" ciclo="ASIR" curso="PRIMERO" fecha_nacimiento="1995-01-30" genero="H" grupo="B" nombre="Guillermo"/><alumno NIA="7854" apellidos="Chueca" ciclo="ADE" curso="segundo" fecha_nacimiento="2010-03-20" genero="H" grupo="A" nombre="Guillermo"/><alumno NIA="243231" apellidos="Peña" ciclo="DAW" curso="PRIMERO" fecha_nacimiento="2004-04-04" genero="H" grupo="C" nombre="Miguel"/></Alumnos>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Alumnos>
+	<alumno NIA="1256" apellidos="Gutierrez" ciclo="dam"
+		curso="segundo" fecha_nacimiento="2005-11-19" genero="H" grupo="D"
+		nombre="Ayoub" />
+	<alumno NIA="5322" apellidos="Santos" ciclo="dam"
+		curso="segundo" fecha_nacimiento="2000-12-12" genero="M" grupo="A"
+		nombre="Pilar" />
+	<alumno NIA="321" apellidos="Garcia" ciclo="ASIR"
+		curso="PRIMERO" fecha_nacimiento="1995-01-30" genero="H" grupo="B"
+		nombre="Guillermo" />
+	<alumno NIA="7854" apellidos="Chueca" ciclo="ADE"
+		curso="segundo" fecha_nacimiento="2010-03-20" genero="H" grupo="A"
+		nombre="Guillermo" />
+	<alumno NIA="243231" apellidos="Peña" ciclo="DAW"
+		curso="PRIMERO" fecha_nacimiento="2004-04-04" genero="H" grupo="C"
+		nombre="Miguel" />
+</Alumnos>

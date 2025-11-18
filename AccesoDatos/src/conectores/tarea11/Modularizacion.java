@@ -17,22 +17,11 @@ public class Modularizacion {
 		super();
 	}
 	
-	public int mostrarOpcionMenu() {
-		Scanner entrada=new Scanner(System.in);
-		System.out.println("1.Insertar un nuevo alumno.\r\n" + "2.Mostar todos los alumnos (en consola).\r\n"
-				+ "3.Guardar todos los alumnos en un fichero (tú eliges el formato del\r\n"
-				+ "4.fichero, pero no puede ser XML ni JSON).\r\n"
-				+ "5. Leer alumnos de un fichero (con el formato anterior), y guardarlo\r\n" + "en una BD.\r\n"
-				+ " 6.Modificar el nombre de un alumno guardado en la base de datos\r\n"
-				+ "a partir de su Primary Key (PK).\r\n" + "7. Eliminar un alumno a partir de su (PK).\r\n"
-				+ "8. Eliminar los alumnos que su apellido contengan la palabra dada\r\n"
-				+ "por el usuario.\r\n" + "9. Guardar todos los alumnos en un fichero XML o JSON.\r\n"
-				+ "10. Leer un fichero XML o JSON de alumnos (con en formato\r\n"
-				+ "anterior) y guardarlos en la BD./n" + "11.Salir del programa");
-
-		int num = entrada.nextInt();
-		return num;
+	public Modularizacion(Scanner entrada) {
+		// TODO Auto-generated constructor stub
 	}
+
+	
 	
 
 	public void insertarAlumno(Connection c) {

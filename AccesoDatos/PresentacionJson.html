@@ -1,339 +1,355 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentos JSON en Java</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentos JSON en Java</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: hidden;
-        }
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	overflow: hidden;
+}
 
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+.presentation-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
 
-        .slide {
-            width: 90%;
-            max-width: 1200px;
-            height: 85vh;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 60px;
-            display: none;
-            flex-direction: column;
-            position: relative;
-            overflow-y: auto;
-        }
+.slide {
+	width: 90%;
+	max-width: 1200px;
+	height: 85vh;
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+	padding: 60px;
+	display: none;
+	flex-direction: column;
+	position: relative;
+	overflow-y: auto;
+}
 
-        .slide.active {
-            display: flex;
-            animation: slideIn 0.5s ease-out;
-        }
+.slide.active {
+	display: flex;
+	animation: slideIn 0.5s ease-out;
+}
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+@
+keyframes slideIn {from { opacity:0;
+	transform: translateX(50px);
+}
 
-        .slide-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
+to {
+	opacity: 1;
+	transform: translateX(0);
+}
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            color: white;
-        }
+}
+.slide-header {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 30px;
+	border-radius: 15px;
+	margin-bottom: 30px;
+}
 
-        h2 {
-            font-size: 2em;
-            color: #667eea;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
+h1 {
+	font-size: 2.5em;
+	margin-bottom: 15px;
+	color: white;
+}
 
-        h3 {
-            font-size: 1.5em;
-            color: #764ba2;
-            margin: 20px 0 10px 0;
-        }
+h2 {
+	font-size: 2em;
+	color: #667eea;
+	margin-bottom: 20px;
+	border-bottom: 3px solid #667eea;
+	padding-bottom: 10px;
+}
 
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
+h3 {
+	font-size: 1.5em;
+	color: #764ba2;
+	margin: 20px 0 10px 0;
+}
 
-        .content {
-            flex: 1;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
+.subtitle {
+	font-size: 1.2em;
+	opacity: 0.9;
+}
 
-        ul {
-            margin: 15px 0;
-            padding-left: 30px;
-        }
+.content {
+	flex: 1;
+	font-size: 1.1em;
+	line-height: 1.6;
+}
 
-        li {
-            margin: 10px 0;
-            list-style-type: none;
-            position: relative;
-            padding-left: 25px;
-        }
+ul {
+	margin: 15px 0;
+	padding-left: 30px;
+}
 
-        li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
+li {
+	margin: 10px 0;
+	list-style-type: none;
+	position: relative;
+	padding-left: 25px;
+}
 
-        code {
-            background: #f4f4f4;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
+li:before {
+	content: "✓";
+	position: absolute;
+	left: 0;
+	color: #667eea;
+	font-weight: bold;
+}
 
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 10px;
-            overflow-x: auto;
-            margin: 15px 0;
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
+code {
+	background: #f4f4f4;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-family: 'Courier New', monospace;
+	font-size: 0.9em;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+pre {
+	background: #2d2d2d;
+	color: #f8f8f2;
+	padding: 20px;
+	border-radius: 10px;
+	overflow-x: auto;
+	margin: 15px 0;
+	font-size: 0.9em;
+	line-height: 1.5;
+}
 
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-        th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: bold;
-        }
+th, td {
+	padding: 15px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
 
-        tr:hover {
-            background: #f5f5f5;
-        }
+th {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	font-weight: bold;
+}
 
-        .controls {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
-        }
+tr:hover {
+	background: #f5f5f5;
+}
 
-        button {
-            background: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            color: #667eea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
+.controls {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	display: flex;
+	gap: 15px;
+	z-index: 1000;
+}
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            background: #667eea;
-            color: white;
-        }
+button {
+	background: white;
+	border: none;
+	padding: 15px 30px;
+	border-radius: 50px;
+	cursor: pointer;
+	font-size: 1em;
+	font-weight: bold;
+	color: #667eea;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+}
 
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+	background: #667eea;
+	color: white;
+}
 
-        .slide-counter {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            color: #667eea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
 
-        .emoji {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
+.slide-counter {
+	position: fixed;
+	bottom: 30px;
+	left: 30px;
+	background: white;
+	padding: 10px 20px;
+	border-radius: 50px;
+	font-weight: bold;
+	color: #667eea;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
 
-        .references {
-            background: #e8f4f8;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
+.emoji {
+	font-size: 1.5em;
+	margin-right: 10px;
+}
 
-        .references a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.references {
+	background: #e8f4f8;
+	padding: 20px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
 
-        .references a:hover {
-            text-decoration: underline;
-        }
-    </style>
+.references a {
+	color: #667eea;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.references a:hover {
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
-    <div class="presentation-container">
-        <!-- Diapositiva 1 -->
-        <div class="slide active">
-            <div class="slide-header" style="text-align: center; padding: 80px 30px;">
-                <div class="emoji">📘</div>
-                <h1>Documentos JSON: Lectura y Escritura en Java</h1>
-                <p class="subtitle" style="font-size: 1.5em; margin-top: 20px;">Unidad 3 – Acceso a Datos</p>
-                <p class="subtitle" style="margin-top: 30px;">IES Lázaro Cárdenas – DAM 2º</p>
-                <p class="subtitle" style="margin-top: 20px; font-style: italic;">Autor: Ayoub Ben Jaddi</p>
-            </div>
-        </div>
+	<div class="presentation-container">
+		<!-- Diapositiva 1 -->
+		<div class="slide active">
+			<div class="slide-header"
+				style="text-align: center; padding: 80px 30px;">
+				<div class="emoji">📘</div>
+				<h1>Documentos JSON: Lectura y Escritura en Java</h1>
+				<p class="subtitle" style="font-size: 1.5em; margin-top: 20px;">Unidad
+					3 – Acceso a Datos</p>
+				<p class="subtitle" style="margin-top: 30px;">IES Lázaro
+					Cárdenas – DAM 2º</p>
+				<p class="subtitle" style="margin-top: 20px; font-style: italic;">Autor:
+					Ayoub Ben Jaddi</p>
+			</div>
+		</div>
 
-        <!-- Diapositiva 2 -->
-        <div class="slide">
-            <h2><span class="emoji">📋</span>Introducción a JSON</h2>
-            <div class="content">
-                <h3>¿Qué es JSON?</h3>
-                <ul>
-                    <li>JSON = <strong>JavaScript Object Notation</strong></li>
-                    <li>Formato ligero para intercambio de datos</li>
-                    <li>Muy utilizado en aplicaciones web, APIs y ficheros de configuración</li>
-                    <li>Basado en pares <strong>clave : valor</strong> y <strong>estructuras anidadas</strong></li>
-                </ul>
+		<!-- Diapositiva 2 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">📋</span>Introducción a JSON
+			</h2>
+			<div class="content">
+				<h3>¿Qué es JSON?</h3>
+				<ul>
+					<li>JSON = <strong>JavaScript Object Notation</strong></li>
+					<li>Formato ligero para intercambio de datos</li>
+					<li>Muy utilizado en aplicaciones web, APIs y ficheros de
+						configuración</li>
+					<li>Basado en pares <strong>clave : valor</strong> y <strong>estructuras
+							anidadas</strong></li>
+				</ul>
 
-                <h3 style="margin-top: 30px;">Ejemplo:</h3>
-                <pre>{
+				<h3 style="margin-top: 30px;">Ejemplo:</h3>
+				<pre>{
   "nombre": "Ayoub",
   "edad": 19,
   "ciclo": "DAM",
   "curso": 2
 }</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 3 -->
-        <div class="slide">
-            <h2><span class="emoji">⭐</span>Características y ventajas</h2>
-            <div class="content">
-                <h3>Características:</h3>
-                <ul>
-                    <li>Formato de texto plano (UTF-8)</li>
-                    <li>Soporta objetos <code>{}</code> y listas <code>[]</code></li>
-                    <li>Compatible con cualquier lenguaje de programación</li>
-                </ul>
+		<!-- Diapositiva 3 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">⭐</span>Características y ventajas
+			</h2>
+			<div class="content">
+				<h3>Características:</h3>
+				<ul>
+					<li>Formato de texto plano (UTF-8)</li>
+					<li>Soporta objetos <code>{}</code> y listas <code>[]</code></li>
+					<li>Compatible con cualquier lenguaje de programación</li>
+				</ul>
 
-                <h3 style="margin-top: 30px;">Ventajas frente a XML:</h3>
-                <ul>
-                    <li>Más <strong>ligero y legible</strong></li>
-                    <li>Se procesa más <strong>rápido</strong></li>
-                    <li>Estructura <strong>más simple y natural</strong></li>
-                    <li><strong>Interoperable</strong> con sistemas web y móviles</li>
-                </ul>
-            </div>
-        </div>
+				<h3 style="margin-top: 30px;">Ventajas frente a XML:</h3>
+				<ul>
+					<li>Más <strong>ligero y legible</strong></li>
+					<li>Se procesa más <strong>rápido</strong></li>
+					<li>Estructura <strong>más simple y natural</strong></li>
+					<li><strong>Interoperable</strong> con sistemas web y móviles</li>
+				</ul>
+			</div>
+		</div>
 
-        <!-- Diapositiva 4 -->
-        <div class="slide">
-            <h2><span class="emoji">📚</span>Bibliotecas populares para JSON en Java</h2>
-            <div class="content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Biblioteca</th>
-                            <th>Descripción</th>
-                            <th>Paquete principal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Gson</strong> (de Google)</td>
-                            <td>Fácil de usar. Convierte objetos Java ↔ JSON automáticamente.</td>
-                            <td><code>com.google.gson.*</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Jackson</strong></td>
-                            <td>Muy potente. Permite parseo, mapeo y streaming de grandes JSON.</td>
-                            <td><code>com.fasterxml.jackson.*</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>org.json</strong></td>
-                            <td>Sencilla y directa. Manipulación básica de JSON.</td>
-                            <td><code>org.json.*</code></td>
-                        </tr>
-                    </tbody>
-                </table>
+		<!-- Diapositiva 4 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">📚</span>Bibliotecas populares para JSON en Java
+			</h2>
+			<div class="content">
+				<table>
+					<thead>
+						<tr>
+							<th>Biblioteca</th>
+							<th>Descripción</th>
+							<th>Paquete principal</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><strong>Gson</strong> (de Google)</td>
+							<td>Fácil de usar. Convierte objetos Java ↔ JSON
+								automáticamente.</td>
+							<td><code>com.google.gson.*</code></td>
+						</tr>
+						<tr>
+							<td><strong>Jackson</strong></td>
+							<td>Muy potente. Permite parseo, mapeo y streaming de
+								grandes JSON.</td>
+							<td><code>com.fasterxml.jackson.*</code></td>
+						</tr>
+						<tr>
+							<td><strong>org.json</strong></td>
+							<td>Sencilla y directa. Manipulación básica de JSON.</td>
+							<td><code>org.json.*</code></td>
+						</tr>
+					</tbody>
+				</table>
 
-                <h3 style="margin-top: 30px;">Ejemplo de instalación (Maven):</h3>
-                <pre>&lt;dependency&gt;
+				<h3 style="margin-top: 30px;">Ejemplo de instalación (Maven):</h3>
+				<pre>&lt;dependency&gt;
   &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;
   &lt;artifactId&gt;gson&lt;/artifactId&gt;
   &lt;version&gt;2.11.0&lt;/version&gt;
 &lt;/dependency&gt;</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 5 -->
-        <div class="slide">
-            <h2><span class="emoji">📖</span>Leer un fichero JSON en Java (con Gson)</h2>
-            <div class="content">
-                <h3>Ejemplo de JSON (alumnos.json):</h3>
-                <pre>[
+		<!-- Diapositiva 5 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">📖</span>Leer un fichero JSON en Java (con Gson)
+			</h2>
+			<div class="content">
+				<h3>Ejemplo de JSON (alumnos.json):</h3>
+				<pre>[
   {"nia": 123, "nombre": "Ayoub", "curso": "2DAM"},
   {"nia": 456, "nombre": "Pilar", "curso": "1DAW"}
 ]</pre>
 
-                <h3>Código Java (Lectura):</h3>
-                <pre>import java.io.FileReader;
+				<h3>Código Java (Lectura):</h3>
+				<pre>import java.io.FileReader;
 import java.util.Arrays;
 import com.google.gson.Gson;
 
@@ -348,14 +364,16 @@ public class LeerJSON {
         }
     }
 }</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 6 -->
-        <div class="slide">
-            <h2><span class="emoji">📝</span>Clase Alumno</h2>
-            <div class="content">
-                <pre>public class Alumno {
+		<!-- Diapositiva 6 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">📝</span>Clase Alumno
+			</h2>
+			<div class="content">
+				<pre>public class Alumno {
     int nia;
     String nombre;
     String curso;
@@ -365,14 +383,17 @@ public class LeerJSON {
         return nia + " - " + nombre + " (" + curso + ")";
     }
 }</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 7 -->
-        <div class="slide">
-            <h2><span class="emoji">✍️</span>Escribir un fichero JSON en Java (con Gson)</h2>
-            <div class="content">
-                <pre>import java.io.FileWriter;
+		<!-- Diapositiva 7 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">✍️</span>Escribir un fichero JSON en Java (con
+				Gson)
+			</h2>
+			<div class="content">
+				<pre>import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -392,15 +413,21 @@ public class EscribirJSON {
         }
     }
 }</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 8 -->
-        <div class="slide">
-            <h2><span class="emoji">📸</span>Ejemplo visual del fichero generado</h2>
-            <div class="content">
-                <h3>Contenido del fichero <code>alumnos.json</code>:</h3>
-                <pre>[
+		<!-- Diapositiva 8 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">📸</span>Ejemplo visual del fichero generado
+			</h2>
+			<div class="content">
+				<h3>
+					Contenido del fichero
+					<code>alumnos.json</code>
+					:
+				</h3>
+				<pre>[
   {
     "nia": 123,
     "nombre": "Ayoub",
@@ -412,95 +439,109 @@ public class EscribirJSON {
     "curso": "1DAW"
   }
 ]</pre>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <!-- Diapositiva 9 -->
-        <div class="slide">
-            <h2><span class="emoji">⚖️</span>Comparación práctica JSON vs XML</h2>
-            <div class="content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>JSON</th>
-                            <th>XML</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sintaxis</td>
-                            <td>Más simple</td>
-                            <td>Más verbosa</td>
-                        </tr>
-                        <tr>
-                            <td>Tamaño</td>
-                            <td>Más pequeño</td>
-                            <td>Más grande</td>
-                        </tr>
-                        <tr>
-                            <td>Lectura humana</td>
-                            <td>Muy fácil</td>
-                            <td>Media</td>
-                        </tr>
-                        <tr>
-                            <td>Soporte Web</td>
-                            <td>Nativo (JavaScript)</td>
-                            <td>Requiere parser</td>
-                        </tr>
-                        <tr>
-                            <td>Uso típico</td>
-                            <td>APIs, apps móviles</td>
-                            <td>Configuraciones, legacy</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+		<!-- Diapositiva 9 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">⚖️</span>Comparación práctica JSON vs XML
+			</h2>
+			<div class="content">
+				<table>
+					<thead>
+						<tr>
+							<th>Concepto</th>
+							<th>JSON</th>
+							<th>XML</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Sintaxis</td>
+							<td>Más simple</td>
+							<td>Más verbosa</td>
+						</tr>
+						<tr>
+							<td>Tamaño</td>
+							<td>Más pequeño</td>
+							<td>Más grande</td>
+						</tr>
+						<tr>
+							<td>Lectura humana</td>
+							<td>Muy fácil</td>
+							<td>Media</td>
+						</tr>
+						<tr>
+							<td>Soporte Web</td>
+							<td>Nativo (JavaScript)</td>
+							<td>Requiere parser</td>
+						</tr>
+						<tr>
+							<td>Uso típico</td>
+							<td>APIs, apps móviles</td>
+							<td>Configuraciones, legacy</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-        <!-- Diapositiva 10 -->
-        <div class="slide">
-            <h2><span class="emoji">✅</span>Conclusiones</h2>
-            <div class="content">
-                <ul style="font-size: 1.2em; line-height: 2;">
-                    <li>JSON es el <strong>estándar moderno</strong> para intercambio de datos</li>
-                    <li>En Java se puede manejar fácilmente con <strong>Gson o Jackson</strong></li>
-                    <li>Es ideal para <strong>guardar configuraciones, alumnos, productos, etc.</strong></li>
-                    <li>Sencillo, rápido y multiplataforma</li>
-                </ul>
-            </div>
-        </div>
+		<!-- Diapositiva 10 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">✅</span>Conclusiones
+			</h2>
+			<div class="content">
+				<ul style="font-size: 1.2em; line-height: 2;">
+					<li>JSON es el <strong>estándar moderno</strong> para
+						intercambio de datos
+					</li>
+					<li>En Java se puede manejar fácilmente con <strong>Gson
+							o Jackson</strong></li>
+					<li>Es ideal para <strong>guardar configuraciones,
+							alumnos, productos, etc.</strong></li>
+					<li>Sencillo, rápido y multiplataforma</li>
+				</ul>
+			</div>
+		</div>
 
-        <!-- Diapositiva 11 -->
-        <div class="slide">
-            <h2><span class="emoji">🔗</span>Referencias</h2>
-            <div class="content">
-                <div class="references">
-                    <ul style="font-size: 1.1em; line-height: 2.5;">
-                        <li><a href="https://github.com/google/gson" target="_blank">Google Gson Documentation</a></li>
-                        <li><a href="https://github.com/FasterXML/jackson-databind" target="_blank">Jackson Databind</a></li>
-                        <li><a href="https://www.json.org/json-es.html" target="_blank">JSON.org</a></li>
-                        
-                    </ul>
-                </div>
+		<!-- Diapositiva 11 -->
+		<div class="slide">
+			<h2>
+				<span class="emoji">🔗</span>Referencias
+			</h2>
+			<div class="content">
+				<div class="references">
+					<ul style="font-size: 1.1em; line-height: 2.5;">
+						<li><a href="https://github.com/google/gson" target="_blank">Google
+								Gson Documentation</a></li>
+						<li><a href="https://github.com/FasterXML/jackson-databind"
+							target="_blank">Jackson Databind</a></li>
+						<li><a href="https://www.json.org/json-es.html"
+							target="_blank">JSON.org</a></li>
 
-                <div style="text-align: center; margin-top: 60px; font-size: 1.3em; color: #667eea;">
-                    <strong>¡Gracias por tu atención! 🎓</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+					</ul>
+				</div>
 
-    <div class="slide-counter">
-        <span id="current">1</span> / <span id="total">11</span>
-    </div>
+				<div
+					style="text-align: center; margin-top: 60px; font-size: 1.3em; color: #667eea;">
+					<strong>¡Gracias por tu atención! 🎓</strong>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <div class="controls">
-        <button id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
-        <button id="nextBtn" onclick="changeSlide(1)">Siguiente ▶</button>
-    </div>
+	<div class="slide-counter">
+		<span id="current">1</span> / <span id="total">11</span>
+	</div>
 
-    <script>
+	<div class="controls">
+		<button id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+		<button id="nextBtn" onclick="changeSlide(1)">Siguiente ▶</button>
+	</div>
+
+	<script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
