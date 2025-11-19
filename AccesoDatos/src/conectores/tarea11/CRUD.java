@@ -14,9 +14,9 @@ public class CRUD extends Modularizacion {
 	    	 Scanner entrada = new Scanner(System.in);
 	         Modularizacion m = new Modularizacion();
 	        
-	         final String DB_URL = "jdbc:mysql://127.0.0.1:3306/alumno_ayoub";
+	         final String DB_URL ="jdbc:mysql://localhost:3306/alumno_ayoub";
 	        final String USER = "root";
-	        final String PASS = "(9r4tePrP7)";
+	        final String PASS = "9r4tePrP7";
 	        
 	        try {
 	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,15 +30,14 @@ public class CRUD extends Modularizacion {
 
 	            int num;
 	            do {
-	            	System.out.println("1.Insertar un nuevo alumno.\r\n" + "2.Mostar todos los alumnos (en consola).\r\n"
-	        				+ "3.Guardar todos los alumnos en un fichero (tú eliges el formato del\r\n"
-	        				+ "4.fichero, pero no puede ser XML ni JSON).\r\n"
-	        				+ "5. Leer alumnos de un fichero (con el formato anterior), y guardarlo\r\n" + "en una BD.\r\n"
-	        				+ " 6.Modificar el nombre de un alumno guardado en la base de datos\r\n"
-	        				+ "a partir de su Primary Key (PK).\r\n" + "7. Eliminar un alumno a partir de su (PK).\r\n"
-	        				+ "8. Eliminar los alumnos que su apellido contengan la palabra dada\r\n"
-	        				+ "por el usuario.\r\n" + "9. Guardar todos los alumnos en un fichero XML o JSON.\r\n"
-	        				+ "10. Leer un fichero XML o JSON de alumnos (con en formato\r\n"
+	            	System.out.println("1.Insertar un nuevo alumno.\r\n" 
+	            			+ "2.Mostar todos los alumnos (en consola).\r\n"
+	        				+ "3.Guardar todos los alumnos en un fichero (tú eliges el formato del\r\"fichero, pero no puede ser XML ni JSON).\r\n"
+	        				+ "4. Leer alumnos de un fichero (con el formato anterior), y guardarlo\r\n" + "en una BD. a partir de su Primary Key (PK).\r\n" 
+	        				+ "6. Eliminar un alumno a partir de su (PK).\r\n"
+	        				+ "7. Eliminar los alumnos que su apellido contengan la palabra dada\r\n"
+	        				+ "por el usuario.\r\n" + "8. Guardar todos los alumnos en un fichero XML o JSON.\r\n"
+	        				+ "9. Leer un fichero XML o JSON de alumnos (con en formato\r\n"
 	        				+ "anterior) y guardarlos en la BD./n" + "11.Salir del programa");
 
 	        		 num = entrada.nextInt();
@@ -51,6 +50,30 @@ public class CRUD extends Modularizacion {
 	                    case 2:
 	                        m.mostrarTodosAlumno(conexion);
 	                        break;
+	                        
+	                    case 3:
+	                    	m.guardarAlumnosEnCSV(conexion);
+	                    	
+	                    	break;
+	                    case 4:
+	                    	m.leerCSVyGuardarEnBD(conexion);
+	                    	break;
+	                    case 5:
+	                    	m.actualizarAlumno(conexion);
+	                    	break;
+	                    case 6:
+	                    	m.eliminarAlumnoPorNia(conexion);
+
+	                    	
+	                    	break;
+	                    	
+	                    case 7:
+	                    	
+	                    	break;
+	                    
+	                    case 8:
+	                    	m.eliminarAlumnoPorApellido(conexion);
+	                    	break;
 	                }
 
 	            } while (num !=11);
