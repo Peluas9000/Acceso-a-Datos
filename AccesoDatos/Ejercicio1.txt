@@ -1,5 +1,2 @@
-Hola 
-Guillermo 
-Ayoub 
-Pilar 
-Aihnoa 
+5780215;pilar;santos;M;2005-11-11;dam;segundo;d
+88925;Daniel;Enrique;H;2002-11-27;dam;segundo;c

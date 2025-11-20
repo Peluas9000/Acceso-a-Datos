@@ -9,7 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import ficheros.tarea4.Alumno;
 
 public class Modularizacion {
 	
@@ -202,9 +212,6 @@ public class Modularizacion {
 	
 	public void eliminarAlumnoPorApellido(Connection c) {
 
-		
-		
-		
 		try {
 			
 			Scanner entrada=new Scanner(System.in);
@@ -270,7 +277,7 @@ public class Modularizacion {
 	
 	public void leerCSVyGuardarEnBD(Connection c) {
 
-	    try (Scanner sc = new Scanner(new File("alumnos.csv"))) {
+	    try (Scanner sc = new Scanner(new File("Ejercicio1.txt"))) {
 
 	        String sql = "INSERT INTO alumno(nia, nombre, apellidos, genero, fecha_nacimiento, ciclo, curso, grupo) VALUES (?,?,?,?,?,?,?,?)";
 	        PreparedStatement ps = c.prepareStatement(sql);
@@ -287,7 +294,7 @@ public class Modularizacion {
 	            String ciclo = datos[5];
 	            String curso = datos[6];
 	            String grupo = datos[7];
-
+	            
 	            ps.setInt(1, nia);
 	            ps.setString(2, nombre);
 	            ps.setString(3, apellidos);
@@ -298,14 +305,94 @@ public class Modularizacion {
 	            ps.setString(8, grupo);
 
 	            ps.executeUpdate();
+	            
 	        }
 
-	        System.out.println("Fichero CSV leído y alumnos insertados en la BD.");
+	        System.out.println("Fichero txt leído y alumnos insertados en la BD.");
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}
+	
+	
+	public void exportarAlumnosAJson(Connection c, String rutaFichero) {
+		
+	    String sql = "SELECT * FROM alumno";
+	    try (Statement st = c.createStatement();
+	         ResultSet rs = st.executeQuery(sql);
+	         FileWriter fw = new FileWriter(rutaFichero)) {
+
+	        List<Alumno> lista = new ArrayList<>();
+	        while (rs.next()) {
+	            Alumno a = new Alumno();
+	            a.setNia(rs.getInt("nia"));
+	            a.setNombre(rs.getString("nombre"));
+	            a.setApellido(rs.getString("apellidos"));
+	            a.setGenero(rs.getString("genero").charAt(0));
+	            java.sql.Date d = rs.getDate("fecha_nacimiento");
+	            if (d != null) a.setFechaNacimiento(d.toLocalDate());
+	            a.setCiclo(rs.getString("ciclo"));
+	            a.setCurso(rs.getString("curso"));
+	            a.setGrupo(rs.getString("grupo"));
+	            lista.add(a);
+	        }
+
+	        Gson gson = new GsonBuilder()
+	                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+	                .setPrettyPrinting()
+	                .create();
+
+	        gson.toJson(lista, fw);
+	        System.out.println("Exportado a JSON: " + rutaFichero);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+
+	public void importarJsonABase(Connection c, String rutaFichero) {
+	    try (FileReader fr = new FileReader(rutaFichero)) {
+	        Gson gson = new GsonBuilder()
+	                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+	                .create();
+
+	        Type tipoLista = new TypeToken<List<Alumno>>(){}.getType();
+	        List<Alumno> lista = gson.fromJson(fr, tipoLista);
+
+	        String sql = "INSERT INTO alumno(nia,nombre,apellidos,genero,fecha_nacimiento,ciclo,curso,grupo) VALUES (?,?,?,?,?,?,?,?)";
+	        try (PreparedStatement ps = c.prepareStatement(sql)) {
+	            int insertados = 0;
+	            for (Alumno a : lista) {
+	                ps.setInt(1, a.getNia());
+	                ps.setString(2, a.getNombre());
+	                ps.setString(3, a.getApellido());
+	                ps.setString(4, String.valueOf(a.getGenero()));
+	                if (a.getFecha_nacimiento() != null)
+	                    ps.setDate(5, java.sql.Date.valueOf(a.getFecha_nacimiento()));
+	                else
+	                    ps.setNull(5, java.sql.Types.DATE);
+	                ps.setString(6, a.getCiclo());
+	                ps.setString(7, a.getCurso());
+	                ps.setString(8, a.getGrupo());
+	                try {
+	                    insertados += ps.executeUpdate();
+	                } catch (SQLException ex) {
+	                    // PK duplicada o error: muestra y sigue
+	                    System.err.println("No insertado NIA=" + a.getNia() + " -> " + ex.getMessage());
+	                }
+	            }
+	            System.out.println("Insertados desde JSON: " + insertados);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 
 	
 	

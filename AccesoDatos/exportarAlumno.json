@@ -1,0 +1,20 @@
+[
+  {
+    "nombre": "ayoub",
+    "apellido": "ben jaddi",
+    "ciclo": "dam",
+    "curso": "segundo",
+    "grupo": "B ",
+    "genero": "H",
+    "nia": 123
+  },
+  {
+    "nombre": "Guillermo",
+    "apellido": "Garcia Hualde",
+    "ciclo": "Dam",
+    "curso": "segundo",
+    "grupo": "B",
+    "genero": "H",
+    "nia": 456
+  }
+]
