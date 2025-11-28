@@ -52,6 +52,7 @@ public class GestionAlumnos {
 				dp.writeInt(a.getFecha_nacimiento().getYear());
 				dp.writeInt(a.getFecha_nacimiento().getMonthValue());
 				dp.writeInt(a.getFecha_nacimiento().getDayOfMonth());
+			
 			}
 			
 			//Lectura de los 5 alumnos 

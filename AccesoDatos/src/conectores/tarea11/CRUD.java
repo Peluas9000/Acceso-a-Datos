@@ -18,11 +18,11 @@ public class CRUD extends Modularizacion {
 	        final String USER = "root";
 	        final String PASS = "9r4tePrP7";
 	        
-	        try {
-	            Class.forName("com.mysql.cj.jdbc.Driver");
-	        } catch (ClassNotFoundException e) {
-	            System.err.println("No conectado el driver");
-	        }
+//	        try {
+//	            Class.forName("com.mysql.cj.jdbc.Driver");
+//	        } catch (ClassNotFoundException e) {
+//	            System.err.println("No conectado el driver");
+//	        }
 
 	        try (Connection conexion = DriverManager.getConnection(DB_URL, USER, PASS)) {
 

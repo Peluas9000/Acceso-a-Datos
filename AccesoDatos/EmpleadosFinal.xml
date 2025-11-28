@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Empleados>
+    <empleado>
+        <nombre>Ayoub</nombre>
+        <apellido>FERNANDEZ</apellido>
+        <fechaNacimiento>2010-11-12</fechaNacimiento>
+        <salario>1000.5</salario>
+    </empleado>
+    <empleado>
+        <nombre>Guille</nombre>
+        <apellido>GIL</apellido>
+        <fechaNacimiento>2000-12-13</fechaNacimiento>
+        <salario>2400.5</salario>
+    </empleado>
+    <empleado>
+        <nombre>Pablo</nombre>
+        <apellido>LOPEZ</apellido>
+        <fechaNacimiento>2015-09-01</fechaNacimiento>
+        <salario>2000.0</salario>
+    </empleado>
+</Empleados>
