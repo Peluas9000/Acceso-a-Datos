@@ -25,6 +25,12 @@ public class Alumno {
 		this.fecha_nacimiento = fecha_nacimiento;
 		this.nia = nia;
 	}
+	
+	public Alumno() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
 
 	public String getNombre() {
 		return nombre;
@@ -98,5 +104,10 @@ public class Alumno {
 				+ ", grupo=" + grupo + ", genero=" + genero + ", fecha_nacimiento=" + fecha_nacimiento + ", nia=" + nia
 				+ "]";
 	}
+
+public void setFechaNacimiento(LocalDate localDate) {
+	// TODO Auto-generated method stub
+	
+}
 
 }

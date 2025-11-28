@@ -16,7 +16,7 @@ public class CRUD extends Modularizacion {
 	        
 	         final String DB_URL ="jdbc:mysql://localhost:3306/alumno_ayoub";
 	        final String USER = "root";
-	        final String PASS = "9r4tePrP7";
+	        final String PASS = "(9r4tePrP7)";
 	        
 //	        try {
 //	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -38,7 +38,7 @@ public class CRUD extends Modularizacion {
 	        				+ "7. Eliminar los alumnos que su apellido contengan la palabra dada\r\n"
 	        				+ "por el usuario.\r\n" + "8. Guardar todos los alumnos en un fichero XML o JSON.\r\n"
 	        				+ "9. Leer un fichero XML o JSON de alumnos (con en formato\r\n"
-	        				+ "anterior) y guardarlos en la BD./n" + "11.Salir del programa");
+	        				+ "anterior) y guardarlos en la BD./n" + "10.Salir del programa");
 
 	        		 num = entrada.nextInt();
 	        		
@@ -63,20 +63,21 @@ public class CRUD extends Modularizacion {
 	                    	break;
 	                    case 6:
 	                    	m.eliminarAlumnoPorNia(conexion);
-
-	                    	
 	                    	break;
 	                    	
 	                    case 7:
-	                    	
+	                    	m.eliminarAlumnoPorApellido(conexion);
 	                    	break;
 	                    
 	                    case 8:
-	                    	m.eliminarAlumnoPorApellido(conexion);
+	                    	m.exportarAlumnosAJson(conexion, "exportarAlumno.json");
+	                    	break;
+	                    case 9:
+	                    	m.importarJsonABase(conexion, "alumnos.json");
 	                    	break;
 	                }
 
-	            } while (num !=11);
+	            } while (num !=10);
 
 	            System.out.println("Saliendo del programa...");
 	            
